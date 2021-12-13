@@ -1,8 +1,8 @@
 package com.example.semester1final;
 
-
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
+import android.widget.ListView;
 
 public class MainThread extends Thread
 {
@@ -13,28 +13,22 @@ public class MainThread extends Thread
     private int targetFPS = 30;
     private double averageFPS;
 
-
     public MainThread(SurfaceHolder surfaceHolder, GameView gameView)
     {
-
-
         super();
         this.surfaceHolder = surfaceHolder;
         this.gameView = gameView;
-
     }
 
     @Override
     public void run()
     {
-
         long startTime;
         long timeMillis;
         long waitTime;
         long totalTime = 0;
         int frameCount =0;
         long targetTime = 1000/targetFPS;
-
 
         while(running)
         {
@@ -55,7 +49,7 @@ public class MainThread extends Thread
             }
             finally
             {
-                if(canvas!=null)
+                if(canvas != null)
                 {
                     try
                     {
@@ -69,7 +63,7 @@ public class MainThread extends Thread
             }
 
             timeMillis = (System.nanoTime() - startTime) / 1000000;
-            waitTime = targetTime-timeMillis;
+            waitTime = targetTime - timeMillis;
 
             try
             {
@@ -80,17 +74,16 @@ public class MainThread extends Thread
 
             }
 
-            totalTime += System.nanoTime()-startTime;
+            totalTime += System.nanoTime() - startTime;
             frameCount++;
             if(frameCount == targetFPS)
             {
-                averageFPS = 1000/((totalTime/frameCount)/1000000);
-                frameCount =0;
+                averageFPS = 1000 / ((totalTime / frameCount) / 1000000);
+                frameCount = 0;
                 totalTime = 0;
                 System.out.println(averageFPS);
             }
         }
-
     }
 
     public void setRunning(boolean isRunning)
